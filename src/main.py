@@ -8,8 +8,8 @@ MQTT_ADDR = "test.mosquitto.org"
 MQTT_PORT = 1883
 MQTT_USER = ""
 MQTT_PASSWD = ""
-MQTT_CLIENTNAME = "NB100-testclient"
-MQTT_TOPIC = "Sensor-test"
+MQTT_CLIENTNAME = "sensortester1234"
+MQTT_TOPIC = "test-topic"
 
 app = Flask(__name__)
 data = None
