@@ -1,5 +1,5 @@
 # HTTP to MQTT forwarder
-HTTP to MQTT forwarder is a program to get IOT-data from HTTP post request, parse it to wanted format and send it to MQTT-broker. Software is development to one specific purpose and enviroment only.
+HTTP to MQTT forwarder is a program to get IOT-data from HTTP post request, parse it to wanted format and send it to MQTT-broker. Software is developed to one specific purpose and enviroment only.
 
 ### To-Do
 Error-handling
