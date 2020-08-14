@@ -5,7 +5,7 @@ import datetime
 import json
 import configparser
 
-#Check "settings.conf.example"
+# Check "settings.conf.example"
 CONF_FILE = "settings.conf"
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ mqtt_port = config.getint("MqttBroker", "port")
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
-@app.route('/input', methods=['GET', 'POST'])
+@app.route('/input', methods=['GET', 'POST']) # @ means decorator
 def readJsonObject():
     data = request.get_json()
     parsed = dataParser(data)
@@ -31,10 +31,10 @@ def readJsonObject():
 def sendToMqtt(message):
     client.publish(config.get("MqttBroker", "out_topic"), json.dumps(message))
  
-def dataParser(package):	#received data from sensor
+def dataParser(package): # Received data from sensor
     try:
         output = {}
-        #pick index of value and place it in output
+        # Pick index of value and place it in output
         output['_msgid'] =  time.ctime().replace(" ", "-")
         output['deveui'] = package['deviceName']
         time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
@@ -43,7 +43,7 @@ def dataParser(package):	#received data from sensor
         output['humidity'] = round(float(package['data'][0]['value'][0]))
         output['pressure'] = round(float(package['data'][1]['value'][0]))
         output['rssi'] = int(float(package['data'][2]['value'][0]))
-        output ['battery'] = int(package["data"][3]['value'][0])/1000 #value/unit error from sensor
+        output ['battery'] = int(package["data"][3]['value'][0])/1000 # Value/unit error from sensor
         output['timestamp_parser'] = int(time.time())
         return output
     except (TypeError, IndexError, KeyError):
