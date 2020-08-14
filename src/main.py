@@ -36,7 +36,6 @@ def parse(package):  # Received data from sensor
         output = {}
         # Pick index of value and place it in output
         output["deveui"] = package["deviceName"]
-        output["timestamp_parser"] = time.time()
         try:
             # timestamp_node is time as indicated by upstream, output uses epoch seconds
             time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
