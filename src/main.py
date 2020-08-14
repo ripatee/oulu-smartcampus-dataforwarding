@@ -9,7 +9,6 @@ import configparser
 CONF_FILE = "settings.conf"
 
 app = Flask(__name__)
-data = None
 
 config = configparser.ConfigParser()
 config.read(CONF_FILE)
