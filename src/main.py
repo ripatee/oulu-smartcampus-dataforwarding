@@ -1,9 +1,10 @@
-from flask import Flask, request
-import paho.mqtt.client as mqtt
-import time
+import configparser
 import datetime
 import json
-import configparser
+import time
+
+import paho.mqtt.client as mqtt
+from flask import Flask, request
 
 # Check "settings.conf.example"
 CONF_FILE = "settings.conf"
