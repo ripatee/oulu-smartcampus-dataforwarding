@@ -43,7 +43,7 @@ def parse(package):  # Received data from sensor
         output['humidity'] = round(float(package['data'][0]['value'][0]))
         output['pressure'] = round(float(package['data'][1]['value'][0]))
         output['rssi'] = int(float(package['data'][2]['value'][0]))
-        output ['battery'] = int(package["data"][3]['value'][0])/1000 # Value/unit error from sensor
+        output['battery'] = int(package["data"][3]['value'][0])/1000 # Value/unit error from sensor
         output['timestamp_parser'] = int(time.time())
         return output
     except (TypeError, IndexError, KeyError):
