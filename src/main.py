@@ -55,3 +55,5 @@ def parse(package):  # Received data from sensor
 client.username_pw_set(mqtt_user, mqtt_passwd)
 client.connect(mqtt_host, mqtt_port)
 client.loop_start()
+
+app.run(host='0.0.0.0', port=config.get("Http", "port"), use_reloader=False, debug=False)

@@ -1,3 +1,6 @@
+[Http]
+port: 3005
+
 [MqttBroker]
 host: smartcampus-mqtt.oulu.fi
 port: 883
