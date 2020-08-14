@@ -21,12 +21,12 @@ mqtt_port = config.getint("MqttBroker", "port")
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
-@app.route('/input', methods=['GET', 'POST'])  # @ means decorator
+@app.route("/input", methods=["GET", "POST"])  # @ means decorator
 def read_json_object():
     data = request.get_json()
     parsed = parse(data)
     send_to_mqtt(parsed)
-    return "Data accepted"
+    return "Data accepted by oulu-smartcampus-dataforwarding"
 
 def send_to_mqtt(message):
     client.publish(config.get("MqttBroker", "out_topic"), json.dumps(message))
@@ -35,16 +35,20 @@ def parse(package):  # Received data from sensor
     try:
         output = {}
         # Pick index of value and place it in output
-        output['_msgid'] = time.ctime().replace(" ", "-")
-        output['deveui'] = package['deviceName']
-        time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
-        output['timestamp_node'] = int(time_sent.replace(tzinfo=datetime.timezone.utc).timestamp())
-        output['temperature'] = round(float(package['data'][0]['value'][1]), 1)
-        output['humidity'] = round(float(package['data'][0]['value'][0]))
-        output['pressure'] = round(float(package['data'][1]['value'][0]))
-        output['rssi'] = int(float(package['data'][2]['value'][0]))
-        output['battery'] = int(package["data"][3]['value'][0])/1000 # Value/unit error from sensor
-        output['timestamp_parser'] = int(time.time())
+        output["deveui"] = package["deviceName"]
+        output["timestamp_parser"] = time.time()
+        try:
+            # timestamp_node is time as indicated by upstream, output uses epoch seconds
+            time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
+            output["timestamp_node"] = int(time_sent.replace(tzinfo=datetime.timezone.utc).timestamp())
+        except ValueError:
+            print("unexpected node timestamp")
+        output["temperature"] = round(float(package["data"][0]["value"][1]), 1)
+        output["humidity"] = round(float(package["data"][0]["value"][0]))
+        output["pressure"] = round(float(package["data"][1]["value"][0]))
+        output["rssi"] = int(float(package["data"][2]["value"][0]))
+        output["battery"] = int(package["data"][3]["value"][0])/1000 # Value/unit error from sensor
+        output["timestamp_parser"] = int(time.time())
         return output
     except (TypeError, IndexError, KeyError):
         print("unexpected packet")
