@@ -1,0 +1,11 @@
+[MqttBroker]
+host: smartcampus-mqtt.oulu.fi
+port: 883
+
+user: user
+passwd: pass
+
+#Please use an unique client_name
+#to avoid existing connections to drop
+client_name: dataforwarder
+out_topic: this/is/example/topic
