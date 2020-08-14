@@ -21,17 +21,17 @@ mqtt_port = config.getint("MqttBroker", "port")
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
-@app.route('/input', methods=['GET', 'POST']) # @ means decorator
-def readJsonObject():
+@app.route('/input', methods=['GET', 'POST'])  # @ means decorator
+def read_json_object():
     data = request.get_json()
-    parsed = dataParser(data)
-    sendToMqtt(parsed)
+    parsed = parse(data)
+    send_to_mqtt(parsed)
     return "Data accepted"
 
-def sendToMqtt(message):
+def send_to_mqtt(message):
     client.publish(config.get("MqttBroker", "out_topic"), json.dumps(message))
  
-def dataParser(package): # Received data from sensor
+def parse(package):  # Received data from sensor
     try:
         output = {}
         # Pick index of value and place it in output
