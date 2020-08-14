@@ -35,7 +35,7 @@ def parse(package):  # Received data from sensor
     try:
         output = {}
         # Pick index of value and place it in output
-        output['_msgid'] =  time.ctime().replace(" ", "-")
+        output['_msgid'] = time.ctime().replace(" ", "-")
         output['deveui'] = package['deviceName']
         time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
         output['timestamp_node'] = int(time_sent.replace(tzinfo=datetime.timezone.utc).timestamp())
