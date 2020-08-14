@@ -1,15 +1,15 @@
-from flask import Flask, request
-import paho.mqtt.client as mqtt
-import time
+import configparser
 import datetime
 import json
-import configparser
+import time
 
-#Check "settings.conf.example"
+import paho.mqtt.client as mqtt
+from flask import Flask, request
+
+# Check "settings.conf.example"
 CONF_FILE = "settings.conf"
 
 app = Flask(__name__)
-data = None
 
 config = configparser.ConfigParser()
 config.read(CONF_FILE)
@@ -21,29 +21,29 @@ mqtt_port = config.getint("MqttBroker", "port")
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
-@app.route('/input', methods=['GET', 'POST'])
-def readJsonObject():
+@app.route('/input', methods=['GET', 'POST'])  # @ means decorator
+def read_json_object():
     data = request.get_json()
-    parsed = dataParser(data)
-    sendToMqtt(parsed)
+    parsed = parse(data)
+    send_to_mqtt(parsed)
     return "Data accepted"
 
-def sendToMqtt(message):
+def send_to_mqtt(message):
     client.publish(config.get("MqttBroker", "out_topic"), json.dumps(message))
  
-def dataParser(package):	#received data from sensor
+def parse(package):  # Received data from sensor
     try:
         output = {}
-        #pick index of value and place it in output
-        output['_msgid'] =  time.ctime().replace(" ", "-")
+        # Pick index of value and place it in output
+        output['_msgid'] = time.ctime().replace(" ", "-")
         output['deveui'] = package['deviceName']
         time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
         output['timestamp_node'] = int(time_sent.replace(tzinfo=datetime.timezone.utc).timestamp())
-        output['temperature'] = round(float(package['data'][0]['value'][1]),1)
+        output['temperature'] = round(float(package['data'][0]['value'][1]), 1)
         output['humidity'] = round(float(package['data'][0]['value'][0]))
         output['pressure'] = round(float(package['data'][1]['value'][0]))
         output['rssi'] = int(float(package['data'][2]['value'][0]))
-        output ['battery'] = int(package["data"][3]['value'][0])/1000 #value/unit error from sensor
+        output['battery'] = int(package["data"][3]['value'][0])/1000 # Value/unit error from sensor
         output['timestamp_parser'] = int(time.time())
         return output
     except (TypeError, IndexError, KeyError):
