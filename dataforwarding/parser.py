@@ -1,6 +1,12 @@
 import datetime
 import time
 
+class MeasurementTimestampError(Exception):
+    pass
+
+class MeasurementTypeError(Exception):
+    pass
+
 def parse(package):  # Received data from sensor
     try:
         output = {}
@@ -11,7 +17,7 @@ def parse(package):  # Received data from sensor
             time_sent = datetime.datetime.strptime(package["time"], "%Y-%m-%dT%H:%M:%S.%fZ")
             output["timestamp_node"] = int(time_sent.replace(tzinfo=datetime.timezone.utc).timestamp())
         except ValueError:
-            print("unexpected node timestamp")
+            raise MeasurementTimestampError("Unexpected node timestamp") from err
         output["temperature"] = round(float(package["data"][0]["value"][1]), 1)
         output["humidity"] = round(float(package["data"][0]["value"][0]))
         output["pressure"] = round(float(package["data"][1]["value"][0]))
@@ -19,5 +25,5 @@ def parse(package):  # Received data from sensor
         output["battery"] = int(package["data"][3]["value"][0])/1000 # Value/unit error from sensor
         output["timestamp_parser"] = int(time.time())
         return output
-    except (TypeError, IndexError, KeyError):
-        print("unexpected packet")
+    except (TypeError, IndexError, KeyError) as err:
+        raise MeasurementTypeError("Unexpected packet") from err

@@ -1,0 +1,117 @@
+{
+  "nodeName": "bc90aaad9cfd55d4",
+  "aistinuid": "A1",
+  "address": "bc90aaad9cfd55d4",
+  "data": [
+    {
+      "unit": [
+        "%",
+        "Celcius"
+      ],
+      "dataID": "B188",
+      "name": [
+        "humidity",
+        "temperature"
+      ],
+      "device": "Humidity sensor",
+      "value": [
+        42,
+        23.8
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mBar"
+      ],
+      "dataID": "B168",
+      "name": [
+        "pressure"
+      ],
+      "device": "Air Pressure sensor",
+      "value": [
+        1014
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mg",
+        "mg",
+        "mg"
+      ],
+      "dataID": "B328",
+      "name": [
+        "X-axis",
+        "Y-axis",
+        "Z-axis"
+      ],
+      "device": "Acceleration",
+      "value": [
+        -24,
+        -13,
+        1008
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "degrees"
+      ],
+      "dataID": "B38C",
+      "name": [
+        "orientation"
+      ],
+      "device": "Orientation",
+      "value": [
+        1.6
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "%",
+        "mV"
+      ],
+      "dataID": "B228",
+      "name": [
+        "battery",
+        "battery voltage"
+      ],
+      "device": "System power status (battery)",
+      "value": [
+        87.5,
+        4050
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "Hz",
+        "mm"
+      ],
+      "dataID": "B32A",
+      "name": [
+        "frequency",
+        "amplitude"
+      ],
+      "device": "Vibration",
+      "value": [
+        56,
+        23
+      ],
+      "sensorID": 0,
+      "range": ""
+    }
+  ],
+  "groupID": "USB/IP-Wite-Gateway",
+  "name": "bc90aaad9cfd55d4",
+  "gatewayAddress": "",
+  "time": "2021-06-09T07:30:00.694Z",
+  "gatewayDeviceName": "",
+  "deviceName": "bc90aaad9cfd55d4",
+  "nodeID": "",
+  "version": "aistin-3"
+}

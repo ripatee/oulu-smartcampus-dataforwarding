@@ -15,6 +15,10 @@ This project includes some unit-tests that can used in, for example developing s
 1. ´pip install -r requirements.txt´
 2. ´python3 test.py´
 
+### Todo
+
+- Gracefully handle interrupted connection to MQTT-broker
+
 ### Licence
 
 Copyright 2020 Risto Korhonen (ripatee) and Jeremias Körkkö under the MIT license.

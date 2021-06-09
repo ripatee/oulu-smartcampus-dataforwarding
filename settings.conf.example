@@ -11,4 +11,5 @@ passwd: pass
 #Please use an unique client_name
 #to avoid existing connections to drop
 client_name: dataforwarder
-out_topic: this/is/example/topic
+aistin_out_topic: this/is/example/topic
+nb100_out_topic: this/is/example/topic
