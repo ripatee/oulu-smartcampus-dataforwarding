@@ -9,7 +9,7 @@ class MeasurementTypeError(Exception):
     pass
 
 
-def parse(package, sensor = "nb_100"):
+def parse(package, sensor="nb_100"):
 	'''
 	Gather essential info from package for reformatting
 	'''
@@ -84,7 +84,7 @@ def reformat(data, sensor):
 				output["battery_percentage"] = float(data["B228"]["battery"]) #########
 			if "B38C" in data:
 				# Offset from horizontal level in degrees
-				output["orientation"] = float(data["B38C"]["orientation"]) #########
+				output["orientation"] = round(float(data["B38C"]["orientation"])) #########
 			if "B1A9" in data:
 				# timeframes = lenght of measurement period in seconds
 				# motions = Amount of registered movements inside the time period
@@ -107,7 +107,7 @@ def reformat(data, sensor):
 				output["differential_pressure"] = float(data["B16C"]["pressure"]) #####
 			if "B1EA" in data:
 				# Given in parts per billion
-				output["organic_compunds"] = int(data["B1EA"]["Total Volatile Organic Compounds"]) ######
+				output["organic_compounds"] = int(data["B1EA"]["Total Volatile Organic Compounds"]) ######
 			if "B1D8" in data:
 				# Object temperature in Celcius degrees
 				output["object_temperature"] = float(data["B1D8"]["temperature"]) ######
