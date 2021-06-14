@@ -1,0 +1,117 @@
+{
+  "nodeName": "187c569c081ccbe9",
+  "aistinuid": "A1",
+  "address": "187c569c081ccbe9",
+  "data": [
+    {
+      "unit": [
+        "%",
+        "Celcius"
+      ],
+      "dataID": "B188",
+      "name": [
+        "humidity",
+        "temperature"
+      ],
+      "device": "Humidity sensor",
+      "value": [
+        42.9,
+        23.9
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mBar"
+      ],
+      "dataID": "B168",
+      "name": [
+        "pressure"
+      ],
+      "device": "Air Pressure sensor",
+      "value": [
+        1008
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mg",
+        "mg",
+        "mg"
+      ],
+      "dataID": "B328",
+      "name": [
+        "X-axis",
+        "Y-axis",
+        "Z-axis"
+      ],
+      "device": "Acceleration",
+      "value": [
+        5,
+        20,
+        1013
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "degrees"
+      ],
+      "dataID": "B38C",
+      "name": [
+        "orientation"
+      ],
+      "device": "Orientation",
+      "value": [
+        1.1
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "%",
+        "mV"
+      ],
+      "dataID": "B228",
+      "name": [
+        "battery",
+        "battery voltage"
+      ],
+      "device": "System power status (battery)",
+      "value": [
+        29.166666666666668,
+        3350
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "Hz",
+        "mm"
+      ],
+      "dataID": "B32A",
+      "name": [
+        "frequency",
+        "amplitude"
+      ],
+      "device": "Vibration",
+      "value": [
+        11,
+        30
+      ],
+      "sensorID": 0,
+      "range": ""
+    }
+  ],
+  "groupID": "USB/IP-Wite-Gateway",
+  "name": "187c569c081ccbe9",
+  "gatewayAddress": "",
+  "time": "2021-06-11T13:48:19.860Z",
+  "gatewayDeviceName": "",
+  "deviceName": "187c569c081ccbe9",
+  "nodeID": "",
+  "version": "aistin-3"
+}

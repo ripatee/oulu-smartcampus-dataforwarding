@@ -1,7 +1,7 @@
 {
-  "nodeName": "bc90aaad9cfd55d4",
-  "aistinuid": "A1",
-  "address": "bc90aaad9cfd55d4",
+  "nodeName": "02e5cc9ede0cbb7d",
+  "aistinuid": "A0",
+  "address": "02e5cc9ede0cbb7d",
   "data": [
     {
       "unit": [
@@ -15,7 +15,7 @@
       ],
       "device": "Humidity sensor",
       "value": [
-        42,
+        43,
         23.8
       ],
       "sensorID": 0,
@@ -31,9 +31,23 @@
       ],
       "device": "Air Pressure sensor",
       "value": [
-        1014
+        1008
       ],
       "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "Celcius"
+      ],
+      "dataID": "B1D8",
+      "name": [
+        "temperature"
+      ],
+      "device": "ObjectTemperature",
+      "value": [
+        23.7
+      ],
       "range": ""
     },
     {
@@ -50,9 +64,9 @@
       ],
       "device": "Acceleration",
       "value": [
-        -24,
-        -13,
-        1008
+        -3,
+        3,
+        1009
       ],
       "range": ""
     },
@@ -66,7 +80,7 @@
       ],
       "device": "Orientation",
       "value": [
-        1.6
+        0.2
       ],
       "range": ""
     },
@@ -82,36 +96,32 @@
       ],
       "device": "System power status (battery)",
       "value": [
-        87.5,
-        4050
+        29.166666666666668,
+        3350
       ],
       "range": ""
     },
     {
       "unit": [
-        "Hz",
-        "mm"
+        "RH%"
       ],
-      "dataID": "B32A",
+      "dataID": "B198",
       "name": [
-        "frequency",
-        "amplitude"
+        "moisture"
       ],
-      "device": "Vibration",
+      "device": "Moisture content",
       "value": [
-        56,
-        23
+        44.9
       ],
-      "sensorID": 0,
       "range": ""
     }
   ],
   "groupID": "USB/IP-Wite-Gateway",
-  "name": "bc90aaad9cfd55d4",
+  "name": "02e5cc9ede0cbb7d",
   "gatewayAddress": "",
-  "time": "2021-06-09T07:30:00.694Z",
+  "time": "2021-06-11T13:58:17.651Z",
   "gatewayDeviceName": "",
-  "deviceName": "bc90aaad9cfd55d4",
+  "deviceName": "02e5cc9ede0cbb7d",
   "nodeID": "",
   "version": "aistin-3"
 }

@@ -1,0 +1,113 @@
+{
+  "nodeName": "1c2673cdc4e3984b",
+  "aistinuid": "A0",
+  "address": "1c2673cdc4e3984b",
+  "data": [
+    {
+      "unit": [
+        "%",
+        "Celcius"
+      ],
+      "dataID": "B188",
+      "name": [
+        "humidity",
+        "temperature"
+      ],
+      "device": "Humidity sensor",
+      "value": [
+        40.2,
+        24.9
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mBar"
+      ],
+      "dataID": "B168",
+      "name": [
+        "pressure"
+      ],
+      "device": "Air Pressure sensor",
+      "value": [
+        1009
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mg",
+        "mg",
+        "mg"
+      ],
+      "dataID": "B328",
+      "name": [
+        "X-axis",
+        "Y-axis",
+        "Z-axis"
+      ],
+      "device": "Acceleration",
+      "value": [
+        -15,
+        -13,
+        989
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "degrees"
+      ],
+      "dataID": "B38C",
+      "name": [
+        "orientation"
+      ],
+      "device": "Orientation",
+      "value": [
+        1.2
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "%",
+        "mV"
+      ],
+      "dataID": "B228",
+      "name": [
+        "battery",
+        "battery voltage"
+      ],
+      "device": "System power status (battery)",
+      "value": [
+        25,
+        3300
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "Pascal"
+      ],
+      "dataID": "B16C",
+      "name": [
+        "pressure"
+      ],
+      "device": "Differential pressure",
+      "value": [
+        -4
+      ],
+      "range": ""
+    }
+  ],
+  "groupID": "USB/IP-Wite-Gateway",
+  "name": "1c2673cdc4e3984b",
+  "gatewayAddress": "",
+  "time": "2021-06-11T14:03:04.260Z",
+  "gatewayDeviceName": "",
+  "deviceName": "1c2673cdc4e3984b",
+  "nodeID": "",
+  "version": "aistin-3"
+}

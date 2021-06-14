@@ -1,0 +1,132 @@
+{
+  "nodeName": "63901828cc699d9b",
+  "aistinuid": "A1",
+  "address": "63901828cc699d9b",
+  "data": [
+    {
+      "unit": [
+        "%",
+        "Celcius"
+      ],
+      "dataID": "B188",
+      "name": [
+        "humidity",
+        "temperature"
+      ],
+      "device": "Humidity sensor",
+      "value": [
+        43.4,
+        23.7
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mBar"
+      ],
+      "dataID": "B168",
+      "name": [
+        "pressure"
+      ],
+      "device": "Air Pressure sensor",
+      "value": [
+        1008
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        "mg",
+        "mg",
+        "mg"
+      ],
+      "dataID": "B328",
+      "name": [
+        "X-axis",
+        "Y-axis",
+        "Z-axis"
+      ],
+      "device": "Acceleration",
+      "value": [
+        0,
+        14,
+        1010
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "degrees"
+      ],
+      "dataID": "B38C",
+      "name": [
+        "orientation"
+      ],
+      "device": "Orientation",
+      "value": [
+        0.7
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "%",
+        "mV"
+      ],
+      "dataID": "B228",
+      "name": [
+        "battery",
+        "battery voltage"
+      ],
+      "device": "System power status (battery)",
+      "value": [
+        33.333333333333336,
+        3400
+      ],
+      "range": ""
+    },
+    {
+      "unit": [
+        "",
+        ""
+      ],
+      "dataID": "B1A9",
+      "name": [
+        "movement",
+        "period"
+      ],
+      "device": "Movement detected",
+      "value": [
+        0,
+        900
+      ],
+      "sensorID": 0,
+      "range": ""
+    },
+    {
+      "unit": [
+        ""
+      ],
+      "dataID": "B1B8",
+      "name": [
+        "count"
+      ],
+      "device": "Total movement",
+      "value": [
+        303
+      ],
+      "sensorID": 0,
+      "range": ""
+    }
+  ],
+  "groupID": "USB/IP-Wite-Gateway",
+  "name": "63901828cc699d9b",
+  "gatewayAddress": "",
+  "time": "2021-06-11T13:53:44.980Z",
+  "gatewayDeviceName": "",
+  "deviceName": "63901828cc699d9b",
+  "nodeID": "",
+  "version": "aistin-3"
+}
