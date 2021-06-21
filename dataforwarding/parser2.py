@@ -12,13 +12,13 @@ class MeasurementTypeError(Exception):
 output = {}
 
 def temperature_humidity(data):
-	'''
-	Temp in Celcius degrees,
-	humidity in %
-	'''
-	temperature = round(float(data["temperature"]), 1)
-	humidity = round(float(data["humidity"]), 1)
-	output["temperature"], output["humidity"] = temperature, humidity
+    '''
+    Temp in Celcius degrees,
+    humidity in %
+    '''
+    temperature = round(float(data["temperature"]), 1)
+    humidity = round(float(data["humidity"]), 1)
+    output["temperature"], output["humidity"] = temperature, humidity
 
 
 def pressure(data):
@@ -132,25 +132,25 @@ def nb_100(data):
 
 
 def parse(package, sensor = "nb_100"):
-	'''
+    '''
     Gather essential info from package for reformatting
-	'''
-	data ={}
-	try:
-		data["deveui"] = package["nodeName"]
-		data["time"] = package["time"]
+    '''
+    data ={}
+    try:
+        data["deveui"] = package["nodeName"]
+        data["time"] = package["time"]
 
-		measurements = package["data"]
-		for measurement in measurements:
-			data[measurement["dataID"]] = {}
+        measurements = package["data"]
+        for measurement in measurements:
+            data[measurement["dataID"]] = {}
 
-			for i in range(len(measurement["name"])):
-				data[measurement["dataID"]][measurement["name"][i]] = measurement["value"][i]
+            for i in range(len(measurement["name"])):
+                data[measurement["dataID"]][measurement["name"][i]] = measurement["value"][i]
 
-	except (TypeError, IndexError, KeyError) as err:
-		raise MeasurementTypeError("Unexpected packet") from err
+    except (TypeError, IndexError, KeyError) as err:
+        raise MeasurementTypeError("Unexpected packet") from err
 
-	return reformat(data, sensor)
+    return reformat(data, sensor)
 
 
 def reformat(data, sensor):
@@ -182,7 +182,7 @@ def reformat(data, sensor):
 
     print(json.dumps(output, indent=4, sort_keys=True))
     return output
-            
+        
 
 aistin_measurements = {
     "B188": temperature_humidity,
