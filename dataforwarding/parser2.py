@@ -1,6 +1,6 @@
 from time import time
 import datetime
-import json
+
 
 class MeasurementTimestampError(Exception):
     pass
@@ -9,8 +9,6 @@ class MeasurementTypeError(Exception):
     pass
 
 
-output = {}
-
 def temperature_humidity(data):
     '''
     Temp in Celcius degrees,
@@ -18,42 +16,42 @@ def temperature_humidity(data):
     '''
     temperature = round(float(data["temperature"]), 1)
     humidity = round(float(data["humidity"]), 1)
-    output["temperature"], output["humidity"] = temperature, humidity
+    return {"temperature": temperature, "humidity": humidity}
 
 
 def pressure(data):
     '''
     Pressure in Bars
     '''
-    output["pressure"] = float(data["pressure"]) / (1*10**3)
+    return {"pressure": float(data["pressure"] / (1*10**3))}
 
 
 def acceleration(data):
     '''
     Convert each axis to G
     '''
-    acceleration = {}
-    acceleration["x"] = int(data["X-axis"]) / (1*10**3)
-    acceleration["y"] = int(data["Y-axis"]) / (1*10**3)
-    acceleration["z"] = int(data["Z-axis"]) / (1*10**3)
-    output["acceleration"] = acceleration
+    acceleration_ = {}
+    acceleration_["x"] = int(data["X-axis"]) / (1*10**3)
+    acceleration_["y"] = int(data["Y-axis"]) / (1*10**3)
+    acceleration_["z"] = int(data["Z-axis"]) / (1*10**3)
+    return {"acceleration": acceleration_}
 
 
 def battery(data):
     '''
     Voltage converted to mV, percentage in %
     '''
-    battery = float(data["battery voltage"]) / (1*10**3)
+    battery_voltage = float(data["battery voltage"]) / (1*10**3)
     battery_percentage = round(float(data["battery"]))
-    output["battery"], output["battery_percentage"] = battery, battery_percentage
+    return {"battery": battery_voltage,
+            "battery_percentage": battery_percentage}
 
 
 def orientation(data):
     '''
     Offset from horizontal level(top up) in degrees
     '''
-    output["orientation"] = float(data["orientation"])
-
+    return {"orientation": float(data["orientation"])}
 
 def motion(data):
     '''
@@ -63,28 +61,28 @@ def motion(data):
     '''
     timeframes = data["period"] / 900
     motions = data["movement"]
-    output["motion"] = int(motions / timeframes)
+    return {"motion": int(motions / timeframes)}
 
 
 def moisture(data):
     '''
     Given in relative humidity RH%
     '''
-    output["moisture"] = float(data["moisture"])
+    return {"moisture": float(data["moisture"])}
 
 
 def co2(data):
     '''
     Given in parts per million
     '''
-    output["co2"] = int(data["carbon dioxide"])
+    return {"co2": int(data["carbon dioxide"])}
 
 
 def total_movement(data):
     '''
     Total movements registered since boot
     '''
-    output["total_movement"] = int(data["count"])
+    return {"total_movement": int(data["count"])}
 
 
 def differential_pressure(data):
@@ -92,43 +90,46 @@ def differential_pressure(data):
     Difference in pressure of two areas.
     Given in Pascals for lower resolution.
     '''
-    output["differential_pressure"] = float(data["pressure"])
+    return {"differential_pressure": float(data["pressure"])}
 
 
 def volatile_compounds(data):
     '''
     Given in parts per billion
     '''
-    output["organic_compounds"] = int(data["Total Volatile Organic Compounds"])
+    return {"organic_compounds": int(data["Total Volatile Organic Compounds"])}
 
 
 def object_temperature(data):
     '''
     Object temperature in Celcius degrees
     '''
-    output["object_temperature"] = float(data["temperature"])
+    return {"object_temperature": float(data["temperature"])}
 
 
 def amplitude_frequency(data):
     '''
     amplitude in mm, frequency in Hz
     '''
-    output["amplitude"] = int(data["amplitude"])
-    output["frequency"] = int(data["frequency"])
+    return {"amplitude": int(data["amplitude"]),
+            "frequency": int(data["frequency"])}
 
 
-def nb_100(data):
+def nb_100(data, deveui):
     '''
     reformat nb_100 data
     '''
-    temperature_humidity(data[output["deveui"] + "-1"])
+    output = {}
+    temperature_humidity_parsed = temperature_humidity(data[deveui + "-1"])
+    output.update(temperature_humidity_parsed)
     # convert pressure to Bars
     # NOTE! received value is not in mBars as suggested.
-    output["pressure"] = round(float(data[output["deveui"] + "-2"]["pressure"]) / (1*10**5), 3)
+    output["pressure"] = round(float(data[deveui + "-2"]["pressure"]) / (1*10**5), 3)
     # unit dBm
-    output["rssi"] = float(data[output["deveui"] + "-3"]["Signal strength"])
+    output["rssi"] = float(data[deveui + "-3"]["Signal strength"])
     # convert battery voltage to mV
-    output["battery"] = float(data[output["deveui"] + "-4"]["battery"]) / (1*10**3)
+    output["battery"] = float(data[deveui + "-4"]["battery"]) / (1*10**3)
+    return output
 
 
 def parse(package, sensor = "nb_100"):
@@ -157,6 +158,7 @@ def reformat(data, sensor):
     '''
     Rebuild objects to unified form
     '''
+    output = {}
     # Unique identification for each device
     output["deveui"] = data.pop("deveui")
 
@@ -165,24 +167,26 @@ def reformat(data, sensor):
 
         # convert nodes timestamp to unix epoch time
         time_parsed = datetime.datetime.strptime(data.pop("time"), "%Y-%m-%dT%H:%M:%S.%fZ")
-        output["timestamp_node"] = int(time_parsed.replace(tzinfo=datetime.timezone.utc).timestamp())
+        timestamp_node = int(time_parsed.replace(tzinfo=datetime.timezone.utc).timestamp())
+        output["timestamp_node"] = timestamp_node
 
     except ValueError:
-            raise MeasurementTimestampError("Unexpected node timestamp") from err
+        raise MeasurementTimestampError("Unexpected node timestamp") from err
 
     # nb-100 packets
     if sensor == "nb_100":
-        nb_100(data)
+        parsed_data = nb_100(data, output["deveui"])
+        output.update(parsed_data)
 
     # aistin packets
     elif sensor == "aistin":
-        # iterate trough measurements in the packet
-        for measurement in data:
-            aistin_measurements[measurement](data[measurement])
 
-    print(json.dumps(output, indent=4, sort_keys=True))
+        for measurement in data:
+            parsed_data = aistin_measurements[measurement](data[measurement])
+            output.update(parsed_data)
+
     return output
-        
+     
 
 aistin_measurements = {
     "B188": temperature_humidity,
