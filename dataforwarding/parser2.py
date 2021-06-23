@@ -1,5 +1,6 @@
 from time import time
 import datetime
+from enum import Enum as enum
 
 
 class MeasurementTimestampError(Exception):
@@ -7,6 +8,10 @@ class MeasurementTimestampError(Exception):
 
 class MeasurementTypeError(Exception):
     pass
+
+class Sensor(enum):
+    nb_100 = 1
+    aistin = 2
 
 
 def temperature_humidity(data):
@@ -129,10 +134,11 @@ def nb_100(data, deveui):
     output["rssi"] = float(data[deveui + "-3"]["Signal strength"])
     # convert battery voltage to mV
     output["battery"] = float(data[deveui + "-4"]["battery"]) / (1*10**3)
+    
     return output
 
 
-def parse(package, sensor = "nb_100"):
+def parse(package, sensor=Sensor.nb_100):
     '''
     Gather essential info from package for reformatting
     '''
@@ -174,12 +180,12 @@ def reformat(data, sensor):
         raise MeasurementTimestampError("Unexpected node timestamp") from err
 
     # nb-100 packets
-    if sensor == "nb_100":
+    if sensor == Sensor.nb_100:
         parsed_data = nb_100(data, output["deveui"])
         output.update(parsed_data)
 
     # aistin packets
-    elif sensor == "aistin":
+    elif sensor == Sensor.aistin:
 
         for measurement in data:
             parsed_data = aistin_measurements[measurement](data[measurement])
