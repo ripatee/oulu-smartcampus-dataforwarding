@@ -24,7 +24,7 @@ class TestParser(unittest.TestCase):
         """All test documents should produce the common measurements"""
         for name, document in sample_documents("test-assets/aistin/*.json"):
             with self.subTest(case=name):
-                parsed = parser.parse(document, "aistin")
+                parsed = parser.parse(document, parser.Sensor.aistin)
                 self.assertIn("acceleration", parsed)
                 self.assertIn("x", parsed.get("acceleration"))
                 self.assertIn("y", parsed.get("acceleration"))
@@ -40,7 +40,7 @@ class TestParser(unittest.TestCase):
 
     def test_parse_aistin_common_values_mv(self):
         """Mv should produce correct common values"""
-        parsed = parser.parse(document("test-assets/aistin/mv.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/mv.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("acceleration", {}).get("x"), 0.005)
         self.assertEqual(parsed.get("acceleration", {}).get("y"), 0.02)
         self.assertEqual(parsed.get("acceleration", {}).get("z"), 1.013)
@@ -55,7 +55,7 @@ class TestParser(unittest.TestCase):
 
     def test_parse_aistin_common_values_sh(self):
         """Sh should produce correct common values"""
-        parsed = parser.parse(document("test-assets/aistin/sh.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/sh.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("acceleration", {}).get("x"), -0.003)
         self.assertEqual(parsed.get("acceleration", {}).get("y"), 0.003)
         self.assertEqual(parsed.get("acceleration", {}).get("z"), 1.009)
@@ -70,30 +70,30 @@ class TestParser(unittest.TestCase):
 
     def test_parse_aistin_dp(self):
         """Dp should be correct"""
-        parsed = parser.parse(document("test-assets/aistin/dp.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/dp.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("differential_pressure"), -4)  # TODO name, unit
 
     def test_parse_aistin_ect(self):
         """Ect should be correct"""
-        parsed = parser.parse(document("test-assets/aistin/ect.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/ect.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("co2"), 400)
         self.assertEqual(parsed.get("organic_compounds"), 40)  # TODO name, unit
 
     def test_parse_aistin_mv(self):
         """Mv should be correct"""
-        parsed = parser.parse(document("test-assets/aistin/mv.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/mv.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("amplitude"), 30)
         self.assertEqual(parsed.get("frequency"), 11)
 
     def test_parse_aistin_pir(self):
         """Pir should be correct"""
-        parsed = parser.parse(document("test-assets/aistin/pir.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/pir.json"), parser.Sensor.aistin)
         # TODO this is quite different
         NotImplemented
 
     def test_parse_aistin_sh(self):
         """Sh should be correct"""
-        parsed = parser.parse(document("test-assets/aistin/sh.json"), "aistin")
+        parsed = parser.parse(document("test-assets/aistin/sh.json"), parser.Sensor.aistin)
         self.assertEqual(parsed.get("object_temperature"), 23.7)
         self.assertEqual(parsed.get("moisture"), 44.9)
 
@@ -101,7 +101,7 @@ class TestParser(unittest.TestCase):
         """Nb100 should be correct""" 
         for name, document in sample_documents("test-assets/nb100/*.json"):
             with self.subTest(case=name):
-                parsed = parser.parse(document, "nb_100")
+                parsed = parser.parse(document)
                 self.assertEqual(parsed["battery"], 3.613)
                 self.assertEqual(parsed["deveui"], "11000014")
                 self.assertEqual(parsed["humidity"], 29.6)
