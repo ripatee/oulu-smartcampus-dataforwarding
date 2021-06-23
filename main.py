@@ -18,18 +18,25 @@ mqtt_user = config.get("MqttBroker", "user")
 mqtt_passwd = config.get("MqttBroker", "passwd")
 mqtt_host = config.get("MqttBroker", "host")
 mqtt_port = config.getint("MqttBroker", "port")
+aistin = config.get("Endpoint", "aistin")
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
-@app.route("/input", methods=["GET", "POST"])  # @ means decorator
-def read_json_object():
+@app.route("/input/<source>", methods=["GET", "POST"])  # @ means decorator
+def read_json_object(source):
+    sensor = parser.Sensor.nb_100
+    if source == aistin:
+        sensor = parser.Sensor.aistin
     data = request.get_json()
-    parsed = parser.parse(data)
-    send_to_mqtt(parsed)
+    parsed = parser.parse(data, sensor)
+    send_to_mqtt(parsed, sensor)
     return "Data accepted by oulu-smartcampus-dataforwarding"
 
-def send_to_mqtt(message):
-    client.publish(config.get("MqttBroker", "nb100_out_topic"), json.dumps(message))
+def send_to_mqtt(message, sensor):
+    topic = "nb100_out_topic"
+    if sensor == parser.Sensor.aistin:
+        topic = "aistin_out_topic"
+    client.publish(config.get("MqttBroker", topic), json.dumps(message))
 
 client.username_pw_set(mqtt_user, mqtt_passwd)
 client.connect(mqtt_host, mqtt_port)
