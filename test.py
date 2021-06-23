@@ -5,7 +5,7 @@ import glob
 import json
 import unittest
 
-from dataforwarding import parser2 as parser
+from dataforwarding import parser
 
 def document(fn):
     """Load a json document"""
