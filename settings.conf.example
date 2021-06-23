@@ -1,6 +1,10 @@
 [Http]
 port: 3005
 
+[Endpoint]
+aistin: example
+nb_100: example
+
 [MqttBroker]
 host: smartcampus-mqtt.oulu.fi
 port: 883
