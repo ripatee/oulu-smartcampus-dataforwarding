@@ -8,6 +8,8 @@ from dataforwarding import parser
 
 # Check "settings.conf.example"
 CONF_FILE = "settings.conf"
+AISTIN = "aistin"
+_NB_100 = "nb_100"
 
 app = Flask(__name__)
 
@@ -18,14 +20,15 @@ mqtt_user = config.get("MqttBroker", "user")
 mqtt_passwd = config.get("MqttBroker", "passwd")
 mqtt_host = config.get("MqttBroker", "host")
 mqtt_port = config.getint("MqttBroker", "port")
-aistin = config.get("Endpoint", "aistin")
+
 
 client = mqtt.Client(config.get("MqttBroker", "Host"))
 
 @app.route("/input/<source>", methods=["GET", "POST"])  # @ means decorator
-def read_json_object(source):
+@app.route("/input", methods=["GET", "POST"])
+def read_json_object(source=None):
     sensor = parser.Sensor.nb_100
-    if source == aistin:
+    if source == AISTIN:
         sensor = parser.Sensor.aistin
     data = request.get_json()
     parsed = parser.parse(data, sensor)
